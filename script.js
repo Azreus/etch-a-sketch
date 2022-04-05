@@ -9,3 +9,11 @@ for (let i = 0; i < 16; i++) {
   }
   mainContainer.appendChild(divRow);
 }
+
+let divCellAll = document.querySelectorAll(".div-cell");
+
+divCellAll.forEach(divCell => divCell.addEventListener("mouseover", changeColour));
+
+function changeColour(evt) {
+  evt.target.style.backgroundColor = "black";
+}

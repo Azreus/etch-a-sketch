@@ -1,9 +1,17 @@
+.main-container {
+  width: 1000px;
+  height: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
 .main-container > div {
   display: flex;
+  flex: auto;
 }
 
 .div-cell {
   border: 1px solid blue;
   box-sizing: border-box;
-  padding: 20px;
+  flex: auto;
 }

@@ -10,6 +10,8 @@ for (let i = 0; i < 16; i++) {
   mainContainer.appendChild(divRow);
 }
 
+// Functionality to change colours on mouseover
+
 let divCellAll = document.querySelectorAll(".div-cell");
 
 divCellAll.forEach(divCell => divCell.addEventListener("mouseover", changeColour));
@@ -17,3 +19,11 @@ divCellAll.forEach(divCell => divCell.addEventListener("mouseover", changeColour
 function changeColour(evt) {
   evt.target.style.backgroundColor = "black";
 }
+
+// Clears the grid
+
+let clear = document.querySelector(".clear");
+
+clear.addEventListener("click", () => {
+  divCellAll.forEach(divCell => divCell.style.backgroundColor = "")
+});

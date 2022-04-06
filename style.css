@@ -1,6 +1,7 @@
 .main-container {
-  width: 960px;
-  height: 960px;
+  width: 750px;
+  height: 750px;
+  border: 1px solid black;
   display: flex;
   flex-direction: column;
 }
@@ -11,7 +12,6 @@
 }
 
 .div-cell {
-  border: 1px solid blue;
   box-sizing: border-box;
   flex: auto;
 }

@@ -1,21 +1,22 @@
 const mainContainer = document.querySelector(".main-container");
 
-createGrid();
+let divCellAll, clear;
 
-let divCellAll = document.querySelectorAll(".div-cell");
+createGrid(16);
 
 addGridEventListener();
 
-function createGrid() {
-  for (let i = 0; i < 32; i++) {
+function createGrid(num) {
+  for (let i = 0; i < num; i++) {
     let divRow = document.createElement("div");
-    for (let j = 0; j < 32; j++) {
+    for (let j = 0; j < num; j++) {
       let divCell = document.createElement("div");
       divCell.classList.add("div-cell");
       divRow.appendChild(divCell);
     }
     mainContainer.appendChild(divRow);
   }
+  divCellAll = document.querySelectorAll(".div-cell");
 }
 
 // Functionality to change colours on mouseover
@@ -28,10 +29,31 @@ function changeColour(evt) {
   evt.target.style.backgroundColor = "black";
 }
 
-// Clears the grid
+// Clears the grid and prompts user for new grid size
 
-let clear = document.querySelector(".clear");
+clear = document.querySelector(".clear");
 
 clear.addEventListener("click", () => {
-  divCellAll.forEach(divCell => divCell.style.backgroundColor = "")
+  //divCellAll.forEach(divCell => divCell.style.backgroundColor = "");
+  removeGrid();
+  let newGridNumber = prompt("Please enter a number for the size of the new grid.");
+  if (isNaN(newGridNumber)) {
+    alert("Not a valid number. Generating 16x16 grid.");
+    createGrid(16);
+  } else if (newGridNumber > 100) {
+    alert("Max is 100. Generating 100x100 grid.");
+    createGrid(100);
+  } else {
+    alert(`Generating ${newGridNumber}x${newGridNumber} grid.`);
+    createGrid(newGridNumber);
+  }
+  addGridEventListener();
 });
+
+function removeGrid() {
+  let mainContainerChild = mainContainer.lastElementChild;
+  while (mainContainerChild) {
+    mainContainer.removeChild(mainContainerChild);
+    mainContainerChild = mainContainer.lastElementChild;
+  }
+}

@@ -1,10 +1,11 @@
 const mainContainer = document.querySelector(".main-container");
 
-let divCellAll, clear, currentEventListener, randomRGB;
+let divCellAll, clear, currentEventListener, black, randomRGB;
 
+// Initial grid starts with 16x16 and 'change to black' feature
 createGrid(16);
-
-addGridEventListener();
+currentEventListener = changeToBlack;
+addGridEventListener(currentEventListener);
 
 function createGrid(num) {
   for (let i = 0; i < num; i++) {
@@ -19,20 +20,6 @@ function createGrid(num) {
   divCellAll = document.querySelectorAll(".div-cell");
 }
 
-// Functionality to change colours on mouseover
-
-function addGridEventListener() {
-  divCellAll.forEach(divCell => divCell.addEventListener("mouseover", changeToBlack));
-}
-
-function changeToBlack(evt) {
-  evt.target.style.backgroundColor = "black";
-}
-
-function changeToRandomRGB(evt) {
-  evt.target.style.backgroundColor = `rgb(${random()}, ${random()}, ${random()})`;
-}
-
 // Clears the grid and prompts user for new grid size
 
 clear = document.querySelector(".clear");
@@ -41,7 +28,7 @@ clear.addEventListener("click", () => {
   //divCellAll.forEach(divCell => divCell.style.backgroundColor = "");
   removeGrid();
   let newGridNumber = prompt("Please enter a number for the size of the new grid.");
-  if (isNaN(newGridNumber)) {
+  if (isNaN(newGridNumber) || newGridNumber === null || newGridNumber === "") {
     alert("Not a valid number. Generating 16x16 grid.");
     createGrid(16);
   } else if (newGridNumber > 100) {
@@ -51,7 +38,7 @@ clear.addEventListener("click", () => {
     alert(`Generating ${newGridNumber}x${newGridNumber} grid.`);
     createGrid(newGridNumber);
   }
-  addGridEventListener();
+  addGridEventListener(currentEventListener);
 });
 
 function removeGrid() {
@@ -62,13 +49,39 @@ function removeGrid() {
   }
 }
 
+// Functionality to change colours on mouseover
+
+function addGridEventListener(current) {
+  divCellAll.forEach(divCell => divCell.addEventListener("mouseover", current));
+}
+
+// Change to black feature
+
+black = document.querySelector(".black");
+black.addEventListener("click", () => {
+  divCellAll.forEach(divCell => divCell.removeEventListener("mouseover", currentEventListener));
+  currentEventListener = changeToBlack;
+  addGridEventListener(currentEventListener);
+});
+
+
+function changeToBlack(evt) {
+  evt.target.style.backgroundColor = "black";
+}
+
+// Change to random RGB value feature
+
 randomRGB = document.querySelector(".random-rgb");
 
 randomRGB.addEventListener("click", () => {
-  divCellAll.forEach(divCell => divCell.removeEventListener("mouseover", changeToBlack));
-  divCellAll.forEach(divCell => divCell.addEventListener("mouseover", changeToRandomRGB));
+  divCellAll.forEach(divCell => divCell.removeEventListener("mouseover", currentEventListener));
   currentEventListener = changeToRandomRGB;
+  addGridEventListener(currentEventListener);
 });
+
+function changeToRandomRGB(evt) {
+  evt.target.style.backgroundColor = `rgb(${random()}, ${random()}, ${random()})`;
+}
 
 // Helper functions
 

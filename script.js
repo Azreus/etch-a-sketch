@@ -1,6 +1,6 @@
 const mainContainer = document.querySelector(".main-container");
 
-let divCellAll, clear;
+let divCellAll, clear, currentEventListener, randomRGB;
 
 createGrid(16);
 
@@ -22,11 +22,15 @@ function createGrid(num) {
 // Functionality to change colours on mouseover
 
 function addGridEventListener() {
-  divCellAll.forEach(divCell => divCell.addEventListener("mouseover", changeColour));
+  divCellAll.forEach(divCell => divCell.addEventListener("mouseover", changeToBlack));
 }
 
-function changeColour(evt) {
+function changeToBlack(evt) {
   evt.target.style.backgroundColor = "black";
+}
+
+function changeToRandomRGB(evt) {
+  evt.target.style.backgroundColor = `rgb(${random()}, ${random()}, ${random()})`;
 }
 
 // Clears the grid and prompts user for new grid size
@@ -56,4 +60,18 @@ function removeGrid() {
     mainContainer.removeChild(mainContainerChild);
     mainContainerChild = mainContainer.lastElementChild;
   }
+}
+
+randomRGB = document.querySelector(".random-rgb");
+
+randomRGB.addEventListener("click", () => {
+  divCellAll.forEach(divCell => divCell.removeEventListener("mouseover", changeToBlack));
+  divCellAll.forEach(divCell => divCell.addEventListener("mouseover", changeToRandomRGB));
+  currentEventListener = changeToRandomRGB;
+});
+
+// Helper functions
+
+function random() {
+  return Math.floor(Math.random() * 255);
 }

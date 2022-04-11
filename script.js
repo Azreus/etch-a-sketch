@@ -1,12 +1,14 @@
-const mainContainer = document.querySelector(".main-container");
+const gridContainer = document.querySelector(".grid-container");
 
 let divCellAll, clear, currentEventListener, black, randomRGB;
 
 // Initial grid starts with 16x16 and 'change to black' feature
 createGrid(16);
+// Tracks which eventListener is in effect for the mouseover function
 currentEventListener = changeToBlack;
 addGridEventListener(currentEventListener);
 
+// Creates rows of divs first, then populates the rows with divs
 function createGrid(num) {
   for (let i = 0; i < num; i++) {
     let divRow = document.createElement("div");
@@ -15,7 +17,7 @@ function createGrid(num) {
       divCell.classList.add("div-cell");
       divRow.appendChild(divCell);
     }
-    mainContainer.appendChild(divRow);
+    gridContainer.appendChild(divRow);
   }
   divCellAll = document.querySelectorAll(".div-cell");
 }
@@ -25,7 +27,6 @@ function createGrid(num) {
 clear = document.querySelector(".clear");
 
 clear.addEventListener("click", () => {
-  //divCellAll.forEach(divCell => divCell.style.backgroundColor = "");
   removeGrid();
   let newGridNumber = prompt("Please enter a number for the size of the new grid.");
   if (isNaN(newGridNumber) || newGridNumber === null || newGridNumber === "") {
@@ -41,11 +42,13 @@ clear.addEventListener("click", () => {
   addGridEventListener(currentEventListener);
 });
 
+// Removes all div cells from the grid, starting from the last div cell
+
 function removeGrid() {
-  let mainContainerChild = mainContainer.lastElementChild;
-  while (mainContainerChild) {
-    mainContainer.removeChild(mainContainerChild);
-    mainContainerChild = mainContainer.lastElementChild;
+  let gridContainerChild = gridContainer.lastElementChild;
+  while (gridContainerChild) {
+    gridContainer.removeChild(gridContainerChild);
+    gridContainerChild = gridContainer.lastElementChild;
   }
 }
 
@@ -86,5 +89,5 @@ function changeToRandomRGB(evt) {
 // Helper functions
 
 function random() {
-  return Math.floor(Math.random() * 255);
+  return Math.floor(Math.random() * 256);
 }

@@ -1,6 +1,6 @@
 const gridContainer = document.querySelector(".grid-container");
 
-let divCellAll, clear, currentEventListener, black, randomRGB;
+let divCellAll, clear, currentEventListener, black, randomRGB, eraser;
 
 // Initial grid starts with 16x16 and 'change to black' feature
 createGrid(16);
@@ -27,9 +27,12 @@ function createGrid(num) {
 clear = document.querySelector(".clear");
 
 clear.addEventListener("click", () => {
-  removeGrid();
   let newGridNumber = prompt("Please enter a number for the size of the new grid.");
-  if (isNaN(newGridNumber) || newGridNumber === null || newGridNumber === "") {
+  if (newGridNumber === null) {
+    return;
+  }
+  removeGrid();
+  if (isNaN(newGridNumber) || newGridNumber === "") {
     alert("Not a valid number. Generating 16x16 grid.");
     createGrid(16);
   } else if (newGridNumber > 100) {
@@ -69,7 +72,7 @@ black.addEventListener("click", () => {
 
 
 function changeToBlack(evt) {
-  evt.target.style.backgroundColor = "black";
+  evt.target.style.backgroundColor = "rgb(0, 0, 0)";
 }
 
 // Change to random RGB value feature
@@ -84,6 +87,20 @@ randomRGB.addEventListener("click", () => {
 
 function changeToRandomRGB(evt) {
   evt.target.style.backgroundColor = `rgb(${random()}, ${random()}, ${random()})`;
+}
+
+// Change to eraser function
+
+eraser = document.querySelector(".eraser");
+eraser.addEventListener("click", () => {
+  divCellAll.forEach(divCell => divCell.removeEventListener("mouseover", currentEventListener));
+  currentEventListener = changeToEraser;
+  addGridEventListener(currentEventListener);
+});
+
+
+function changeToEraser(evt) {
+  evt.target.style.backgroundColor = "rgb(255, 255, 255)";
 }
 
 // Helper functions

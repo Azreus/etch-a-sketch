@@ -1,14 +1,14 @@
 body {
-  background-color: #7a7a7a;
+  background-color: #dddddd;
   display: flex;
   flex-direction: column;
 }
 
 .top-bar {
   text-align: center;
-  background-color: #3b3b3b;
-  color: white;
+  background-color: #cccccc;
   padding: 30px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 50px;
 }
 
@@ -20,22 +20,66 @@ body {
 }
 
 .button-container {
-  padding-right: 50px;
+  padding-right: 100px;
   display: flex;
   flex-direction: column;
 }
 
-.button-container > button {
-  margin: 10px;
+button {
+  margin-bottom: 30px;
   padding: 20px 30px;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 18px;
+  background-color: #aaaaaa;
+  border-style: none;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+button:hover {
+  transform: scale(1.2);
+}
+
+.random-rgb:hover {
+  animation: rainbow 1.8s infinite;
+}
+
+@keyframes rainbow {
+  0% {background-color: #aaaaaa;}
+  14.3% {background-color: #f44336;}
+  28.6% {background-color: #ff9800;}
+  42.9% {background-color: #ffeb3b;}
+  57.2% {background-color: #4caf50;}
+  71.5% {background-color: #2196f3;}
+  85.8% {background-color: #c158dc;}
+  100% {background-color: #aaaaaa;}
+}
+
+.black {
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.black:hover {
+  background-color: black;
+  color: white;
+  transform: scale(1.2);
+}
+
+.eraser {
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.eraser:hover {
+  background-color: white;
+  transform: scale(1.2);
 }
 
 .grid-container {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   width: 700px;
   height: 700px;
   border: 1px solid black;
-  box-shadow: 0 0 10px #3b3b3b;
+  box-shadow: 0 0 10px #bbbbbb;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
